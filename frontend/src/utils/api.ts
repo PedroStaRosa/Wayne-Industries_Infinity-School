@@ -2,10 +2,17 @@ import type { LogsType } from "../types/logsType";
 import type { ResourceCreateType } from "../types/resourceCreateType";
 import type { ResourceProps } from "../types/resourcesType";
 import type UserType from "../types/userType";
+import {
+  API_URL_LOGIN,
+  API_URL_RESOURCES,
+  API_URL_CREATE_USER,
+  API_URL_LOGS,
+  API_URL_USER,
+} from "./apiUrls";
 
 const login = async (email: string, password: string) => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_LOGIN, {
+    const response = await fetch(API_URL_LOGIN, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -19,7 +26,7 @@ const login = async (email: string, password: string) => {
 
 const fetchResourses = async (userToken: string): Promise<ResourceProps[]> => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_RESOURCES, {
+    const response = await fetch(API_URL_RESOURCES, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,16 +61,13 @@ const fetchResourses = async (userToken: string): Promise<ResourceProps[]> => {
 
 const deleteResources = async (userToken: string, id: string) => {
   try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL_RESOURCES}/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-      }
-    );
+    const response = await fetch(`${API_URL_RESOURCES}/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+    });
 
     const data = await response.json();
     if (response.status >= 400) {
@@ -83,7 +87,7 @@ const deleteResources = async (userToken: string, id: string) => {
 
 const create_user = async (user: UserType, userToken: string) => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_CREATE_USER, {
+    const response = await fetch(API_URL_CREATE_USER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -108,7 +112,7 @@ const create_user = async (user: UserType, userToken: string) => {
 
 const fetchAllUsers = async (userToken: string) => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_USER, {
+    const response = await fetch(API_URL_USER, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +133,7 @@ const updateRoleUser = async (
   userToken: string
 ) => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_USER, {
+    const response = await fetch(API_URL_USER, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -154,7 +158,7 @@ const updateRoleUser = async (
 
 const deleteUser = async (userToken: string, id: string) => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL_USER}/${id}`, {
+    const response = await fetch(`${API_URL_USER}/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -179,7 +183,7 @@ const new_resource = async (
   userToken: string
 ) => {
   try {
-    const response = await fetch(import.meta.env.VITE_API_URL_RESOURCES, {
+    const response = await fetch(API_URL_RESOURCES, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -211,18 +215,15 @@ const new_resource = async (
 
 const update_resource = async (resource: ResourceProps, userToken: string) => {
   try {
-    const response = await fetch(
-      `${import.meta.env.VITE_API_URL_RESOURCES}/${resource.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
+    const response = await fetch(`${API_URL_RESOURCES}/${resource.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
 
-        body: JSON.stringify({ ...resource }),
-      }
-    );
+      body: JSON.stringify({ ...resource }),
+    });
 
     const data = await response.json();
     if (response.status >= 400) {
@@ -243,7 +244,7 @@ const fetchDashboardLogs = async (
   limit?: number
 ): Promise<LogsType[]> => {
   try {
-    let query = `${import.meta.env.VITE_API_URL_LOGS}`;
+    let query = `${API_URL_LOGS}`;
     if (limit) {
       query += `?limit=${limit}`;
     }
