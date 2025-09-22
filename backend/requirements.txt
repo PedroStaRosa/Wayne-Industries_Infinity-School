@@ -3,7 +3,5 @@ Flask-Cors
 Flask-JWT-Extended
 Flask-SQLAlchemy
 python-dotenv
-flask_bcrypt
-flask_jwt_extended
-sqlite3-binary
-logging
+Flask-Bcrypt
+Flask_swagger_ui
