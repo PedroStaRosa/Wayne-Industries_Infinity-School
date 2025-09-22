@@ -1,0 +1,14 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --color-primary: #2563eb;
+  --color-primary-hover: #4e7ee6;
+  --color-secondary: #facc15;
+  --color-secondary-hover: #ba9c25;
+  --color-delete: #fc0f03;
+  --color-delete-hover: #fc6058;
+  --font-size-base: 16px;
+  --border-radius: 8px;
+  --background-primary: #242424;
+  --color-default-select: #e4e4e4;
+}

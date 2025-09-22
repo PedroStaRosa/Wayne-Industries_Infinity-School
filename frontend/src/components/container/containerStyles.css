@@ -1,0 +1,22 @@
+/* Layout principal */
+.dashboard-container {
+  display: flex;
+  min-height: 100%;
+  background: #f3f4f6;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: auto;
+  width: 100%;
+  margin-left: 250px;
+  padding: 20px;
+}
+
+.dashboard-main {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+    margin-left: 0px;
+  }
+}

@@ -1,0 +1,51 @@
+INSERT INTO resources (
+                          id,
+                          name,
+                          type,
+                          status,
+                          created_at,
+                          updated_at
+                      )
+                      VALUES (
+                          21,
+                          'Recurso Test1',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL),
+                           (
+                          22,
+                          'Recurso Test2',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL),
+                                                      (
+                          23,
+                          'Recurso Test3',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL),
+                                                      (
+                          24,
+                          'Recurso Test5',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL),
+                                                      (
+                          25,
+                          'Recurso Test4',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL),
+                                                      (
+                          26,
+                          'Recurso Test6',
+                          'Veiculo',
+                          'Ativo',
+                          '2025-09-13 22:02:30',
+                           NULL)
+                           

@@ -1,0 +1,29 @@
+# Virtual environment
+venv/
+__pycache__/
+
+# Environment variables
+.env
+
+# Database files (local dev)
+*.db
+*.sqlite3
+
+# Python cache
+*.pyc
+*.pyo
+*.pyd
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor config (opcional)
+.vscode/
+.idea/
+
+# Swagger docs output (se gerar arquivos temporários)
+docs/*.json

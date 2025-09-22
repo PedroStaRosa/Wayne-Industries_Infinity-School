@@ -1,0 +1,10 @@
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+python app.py
+
+
+    Ao inves de deletar um usuario, irei mudar o is_active para 0, 
+como forma de deixar os registros para pesquisa futura, implementar futuramente uma logica caso o usuario seja 
+ativado novamente.
