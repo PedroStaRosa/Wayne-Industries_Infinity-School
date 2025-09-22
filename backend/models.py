@@ -84,6 +84,7 @@ def fetch_users(conn):
 def authenticate_user(conn, email, password):
     
     cursor = conn.cursor()
+    print(email, password)
     cursor.execute("SELECT * FROM users WHERE email = ? AND is_active = 1", (email,))
     user = cursor.fetchone()
 

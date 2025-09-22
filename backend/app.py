@@ -17,9 +17,6 @@ load_dotenv()
 SWAGGER_URL = "/docs"
 API_URL = "/docs/openapi.yaml" 
 
-
-
-
 app = Flask(__name__)
 
 swaggerui_blueprint = get_swaggerui_blueprint(
@@ -49,9 +46,7 @@ init_db()
 
 # Criar usuário admin inicial
 try:
-    models.create_user("Bruce Wayne", "bruce@wayne.com", "bruce123", "admin")
-    models.create_user("Alfred", "alfred@wayne.com", "alfred123", "manager")
-    models.create_user("Robin", "robin@wayne.com", "robin123", "employee")
+    User_Service.create_initial_users()
 except:
     pass 
 

@@ -8,6 +8,25 @@ logger = logging.getLogger(__name__)
 
 
 class User_Service:
+    
+    def create_initial_users():
+        conn = None
+        try:
+            conn = get_connection()
+            print("criando usuários iniciais")
+            models.create_user(conn,"Bruce Wayne", "bruce@wayne.com", "bruce123", "admin")
+            models.create_user(conn,"Alfred", "alfred@wayne.com", "alfred123", "manager")
+            models.create_user(conn,"Robin", "robin@wayne.com", "robin123", "employee")
+
+            conn.commit()
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            logger.error(f"Erro ao criar usuários iniciais: {str(e)}")
+        finally:
+            if conn:
+                conn.close()
+    
     def login(email,password):
         try:
             conn = get_connection()
