@@ -130,7 +130,7 @@ const ResourcesPage = ({ currentUser }: { currentUser: UserResponseProps }) => {
       if (!response.status) {
         throw new Error(response.msg);
       }
-      toast.success("error" + response.msg);
+      toast.success(response.msg);
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Erro ao excluir");
     } finally {
