@@ -4,7 +4,7 @@ from database import get_connection
 bcrypt = Bcrypt()
 
 # Criar usuário
-def create_user(conn,name, email, password, role):
+def create_user(conn,name, email, password, role,id=None):
     cursor = conn.cursor()
     currentDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -14,7 +14,11 @@ def create_user(conn,name, email, password, role):
     if user:
         return None
     
-    cursor.execute("INSERT INTO users (name, email, password, role, is_active, created_at) VALUES (?, ?, ?,?, ?,?)",
+    if id:
+        cursor.execute("INSERT INTO users (id,name, email, password, role, is_active, created_at) VALUES (?,?, ?, ?,?, ?,?)",
+                   (id,name, email, hashed_pw, role, True, currentDate))
+    else:
+        cursor.execute("INSERT INTO users (name, email, password, role, is_active, created_at) VALUES (?,?, ?, ?,?, ?)",
                    (name, email, hashed_pw, role, True, currentDate))
     
     return {
@@ -112,6 +116,17 @@ def get_resource_by_id(conn,id):
     
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM resources WHERE id = ?", (id,))
+    row = cursor.fetchone()
+    
+    if row:
+        return dict(row)
+    return None
+
+# Buscar recurso por ID - OK
+def get_resource_by_name(conn,name):
+    
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM resources WHERE name = ?", (name,))
     row = cursor.fetchone()
     
     if row:
