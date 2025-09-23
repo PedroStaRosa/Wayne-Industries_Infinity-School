@@ -41,7 +41,7 @@ Ativar o ambiente virtual:
 
 - **Linux / Mac:**
   ```bash
-  source venv/bin/activate
+  source venv/Scripts/activate
   ```
 - **Windows:**
   ```bash
