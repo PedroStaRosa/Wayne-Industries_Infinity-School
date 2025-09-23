@@ -44,9 +44,10 @@ init_db()
 
 
 
-# Criar usuário admin inicial
+# Criar usuários e recusros iniciais
 try:
     User_Service.create_initial_users()
+    Resource_service.create_initial_resources()
 except:
     pass 
 

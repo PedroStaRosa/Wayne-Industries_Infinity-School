@@ -14,9 +14,9 @@ class User_Service:
         try:
             conn = get_connection()
             print("criando usuários iniciais")
-            models.create_user(conn,"Bruce Wayne", "bruce@wayne.com", "bruce123", "admin")
-            models.create_user(conn,"Alfred", "alfred@wayne.com", "alfred123", "manager")
-            models.create_user(conn,"Robin", "robin@wayne.com", "robin123", "employee")
+            models.create_user(conn,"Bruce Wayne", "bruce@wayne.com", "bruce123", "admin",1)
+            models.create_user(conn,"Alfred", "alfred@wayne.com", "alfred123", "manager",2)
+            models.create_user(conn,"Robin", "robin@wayne.com", "robin123", "employee",3)
 
             conn.commit()
         except Exception as e:

@@ -5,6 +5,46 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Resource_service:
+    
+    def create_initial_resources():
+        conn = None
+        try:
+            conn = get_connection()
+            print("Criando recursos iniciais")
+
+            initial_resources = [
+                {"name": "Leitor Biometrico", "type": "Seguranca", "status": "Ativo", "user_id": 1},
+                {"name": "Raio X", "type": "Seguranca", "status": "Manutencao", "user_id": 1},
+                {"name": "BatMovel", "type": "Veiculo", "status": "Ativo", "user_id": 1},
+                {"name": "BatWing", "type": "Equipamento", "status": "Inativo", "user_id": 2},
+                {"name": "Servidor Central", "type": "Equipamento", "status": "Ativo", "user_id": 1},
+                {"name": "Drone de Vigilancia", "type": "Seguranca", "status": "Manutencao", "user_id": 2},
+                {"name": "Armadura Tática", "type": "Equipamento", "status": "Ativo", "user_id": 2},
+                {"name": "Sistema de Comunicacao", "type": "Seguranca", "status": "Ativo", "user_id": 1},
+                {"name": "Banco de Dados Secreto", "type": "Seguranca", "status": "Inativo", "user_id": 1},
+                {"name": "Carro Blindado", "type": "Veiculo", "status": "Manutencao", "user_id": 1},
+                {"name": "Heliponto", "type": "Veiculo", "status": "Ativo", "user_id": 1},
+                {"name": "Sistema de Inteligencia Artificial", "type": "Seguranca", "status": "Inativo", "user_id": 2},
+                {"name": "Arsenal Secreto", "type": "Seguranca", "status": "Ativo", "user_id": 2},
+            ]
+
+            for resource in initial_resources:
+                cursor = conn.cursor()
+                exists = models.get_resource_by_name(conn,resource["name"])
+
+                if not exists:
+                    models.create_resource(conn, resource["name"], resource["type"], resource["status"])
+                    Log_Service.create_new_log(conn, resource["user_id"], f"Criou o recurso {resource['name']}")
+
+            conn.commit()
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            logger.error(f"Erro ao criar recursos iniciais: {str(e)}")
+        finally:
+            if conn:
+                conn.close()
+    
     def list_all_resources():
         try:
             conn = get_connection()
@@ -17,7 +57,16 @@ class Resource_service:
             conn.close()
     
     def create_new_resource(name, type, status, actor_id):
+        conn = None
         try:
+        
+            if type not in ["Seguranca", "Veiculo","Equipamento"]:
+                return {"msg": "Tipo inválido."}, 400
+
+            
+            if status not in ["Ativo", "Manutencao", "Inativo"]:
+                return {"msg": "Status inválido."}, 400
+            
             conn = get_connection()
             new_resource = models.create_resource(
                 conn,
@@ -31,12 +80,14 @@ class Resource_service:
             
             return {"msg": "Recurso criado com sucesso"}, 201
         except Exception as e:
-            conn.rollback()  # desfaz o insert do recurso
+            if conn:
+                conn.rollback()  # desfaz o insert do recurso
             logger.error(f"Erro ao criar o recurso: {str(e)}")
             return {"error": f"Falha ao criar recurso"}, 500
         
         finally:
-            conn.close()
+            if conn:
+                conn.close()
     
     def update_resource(resource_id, name, type, status, actor_id):
         conn = None
