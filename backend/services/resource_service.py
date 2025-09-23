@@ -57,9 +57,16 @@ class Resource_service:
             conn.close()
     
     def create_new_resource(name, type, status, actor_id):
-     
+        conn = None
         try:
+        
+            if type not in ["Seguranca", "Veiculo","Equipamento"]:
+                return {"msg": "Tipo inválido."}, 400
 
+            
+            if status not in ["Ativo", "Manutencao", "Inativo"]:
+                return {"msg": "Status inválido."}, 400
+            
             conn = get_connection()
             new_resource = models.create_resource(
                 conn,
@@ -73,13 +80,14 @@ class Resource_service:
             
             return {"msg": "Recurso criado com sucesso"}, 201
         except Exception as e:
-            
-            conn.rollback()  # desfaz o insert do recurso
+            if conn:
+                conn.rollback()  # desfaz o insert do recurso
             logger.error(f"Erro ao criar o recurso: {str(e)}")
             return {"error": f"Falha ao criar recurso"}, 500
         
         finally:
-            conn.close()
+            if conn:
+                conn.close()
     
     def update_resource(resource_id, name, type, status, actor_id):
         conn = None
